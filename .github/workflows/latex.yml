@@ -1,0 +1,24 @@
+name: Build LaTeX document
+
+on:
+  push:
+    branches: [ main ]   # Runs when you push to main branch
+  pull_request:           # Also runs for PRs
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: cv-llt.tex   # change this to your main .tex file
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: PDF
+          path: cv-llt.pdf        # must match output file name
