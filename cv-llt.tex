@@ -1,27 +1,34 @@
-%%%%%%%%%%%%%%%
-% This CV example/template is based on my own
-% CV which I (lamely attempted) to clean up, so that
-% it's less of an eyesore and easier for others to use.
-%
-% LianTze Lim (liantze@gmail.com)
-% 23 Oct, 2022
-% 24 Aug, 2024 -- Updated X (Twitter) icon
 \documentclass[a4paper,skipsamekey,11pt,english]{curve}
 
-% Uncomment to enable Chinese; needs XeLaTeX
-% \usepackage{ctex}
+%\PassOptionsToPackage{style=ieee,sorting=ydnt,uniquename=init,defernumbers=true}{biblatex}
 
+\PassOptionsToPackage{style=ieee,sorting=custom,uniquename=init,defernumbers=true}{biblatex}
 
-% Default biblatex style used for the publication list is APA6. If you wish to use a different style or pass other options to biblatex you can change them here. 
-\PassOptionsToPackage{style=ieee,sorting=ydnt,uniquename=init,defernumbers=true}{biblatex}
-
-% Most commands and style definitions are in settings.sty.
 \usepackage{settings}
+
+\DeclareSortingTemplate{custom}{
+  % 1. Primary sort: Put entries WITH a pubstate (e.g. unpublished, submitted) last,
+  %    and entries WITHOUT a pubstate (published papers) first.
+  \sort{
+    \field{pubstate}
+    \literal{0}
+  }
+  % 2. Secondary sort: Year in descending order (newest to oldest)
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  % 3. Tertiary sort: Month in descending order
+  \sort[direction=descending]{
+    \field{month}
+    \literal{99}
+  }
+}
 
 % If you need to further customise your biblatex setup e.g. with \DeclareFieldFormat etc please add them here AFTER loading settings.sty. For example, to remove the default "[Online] Available:" prefix before URLs when using the IEEE style:
 \DefineBibliographyStrings{english}{url={\textsc{url}}}
 
-%% Only needed if you want a Publication List
 \addbibresource{own-bib.bib}
 
 \defbibfilter{collab}{
