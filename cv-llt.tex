@@ -1,7 +1,5 @@
 \documentclass[a4paper,skipsamekey,11pt,english]{curve}
 
-%\PassOptionsToPackage{style=ieee,sorting=ydnt,uniquename=init,defernumbers=true}{biblatex}
-
 \PassOptionsToPackage{style=ieee,sorting=custom,uniquename=init,defernumbers=true}{biblatex}
 
 \usepackage{settings}
@@ -33,6 +31,21 @@
 
 \addbibresource{own-bib.bib}
 
+% ==========================================
+% NEW: arXiv Automatic Hyperlink Mapping
+% ==========================================
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldsource=archiveprefix, match=\regexp{(?i)arxiv}, final]
+      \step[fieldset=eprinttype, fieldvalue=arxiv]
+    }
+    \map{
+      \step[fieldsource=primaryclass, fieldtarget=eprintclass]
+    }
+  }
+}
+
 \defbibfilter{collabsig}{
   keyword={collabsig}
 }
@@ -41,21 +54,15 @@
   keyword={shortauthor}
 }
 
-%% Specify your last name(s) and first name(s) (as given in the .bib) to automatically bold your own name in the publications list. 
-%% One caveat: You need to write \bibnamedelima where there's a space in your name for this to work properly; or write \bibnamedelimi if you use initials in the .bib
-% \mynames{Lim/Lian\bibnamedelima Tze}
-
-%% You can specify multiple names like this, especially if you have changed your name or if you need to highlight multiple authors. See items 6–9 in the example "Journal Articles" output.
-\mynames{Lim/Lian\bibnamedelima Tze,
-  Wong/Lian\bibnamedelima Tze,
-  Lim/Tracy,
-  Lim/L.\bibnamedelimi T.}
-%% MAKE SURE THERE IS NO SPACE AFTER THE FINAL NAME IN YOUR \mynames LIST
+% ==========================================
+% FIXED: Auto-bolding for your exact name
+% ==========================================
+\mynames{Tiwari/Avinash,
+  Tiwari/A.}
 
 % Change the fonts if you want
 \ifxetexorluatex % If you're using XeLaTeX or LuaLaTeX
   \usepackage{fontspec} 
-  %% You can use \setmainfont etc; I'm just using these font packages here because they provide OpenType fonts for use by XeLaTeX/LuaLaTeX anyway
   \usepackage[p,osf,swashQ]{cochineal}
   \usepackage[medium,bold]{cabin}
   \usepackage[varqu,varl,scale=0.9]{zi4}
@@ -66,53 +73,30 @@
   \usepackage[varqu,varl,scale=0.9]{zi4}
 \fi
 
-% Change the page margins if you want
-% \geometry{left=1cm,right=1cm,top=1.5cm,bottom=1.5cm}
-
-% Change the colours if you want
-% \definecolor{SwishLineColour}{HTML}{00FFFF}
-% \definecolor{MarkerColour}{HTML}{0000CC}
-
-% Change the item prefix marker if you want
-% \prefixmarker{$\diamond$}
-
 %% Photo is only shown if "fullonly" is included
 \includecomment{fullonly}
-% \excludecomment{fullonly}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \leftheader{%
   {\LARGE\bfseries\sffamily Avinash Tiwari, Ph.D. Student}
 
   {\small\bfseries\sffamily Thesis submitted}
 
-  \makefield{\faEnvelope[regular]}{\href{itsmeavinasht@gmail.com}{\texttt{itsmeavinasht@gmail.com}}}
+  % ==========================================
+  % FIXED: Added 'mailto:' for clickable emails
+  % ==========================================
+  \makefield{\faEnvelope[regular]}{\href{mailto:itsmeavinasht@gmail.com}{\texttt{itsmeavinasht@gmail.com}}}
   
-  \makefield{\faEnvelope[regular]}{\href{avinash.tiwari@iucaa.in}{\texttt{avinash.tiwari@iucaa.in}}}
-  % fontawesome5 doesn't have the X icon so we use
-  % the simpleicons package here instead; but some 
-  % font size adjustment might be needed
-  %\makefield{{\scriptsize\simpleicon{x}}}{\!\href{https://x.com/overleaf_example}{\texttt{@overleaf\_example}}}
-  
-  %\makefield{\faLinkedin}
- % {\href{https://www.linkedin.com/in/avinash-tiwari-408639190?trk=contact-info}{\texttt{avinash-tiwari}}}
+  \makefield{\faEnvelope[regular]}{\href{mailto:avinash.tiwari@iucaa.in}{\texttt{avinash.tiwari@iucaa.in}}}
 
   \makefield{\faGlobe}{\url{https://avinash-tiwari-at.github.io/}}
 
   \makefield{\faOrcid}
   {\href{https://orcid.org/0000-0001-7197-8899}{\texttt{0000-0001-7197-8899}}}
-  
-  %\orcidlink{}
 }
 
 \rightheader{~}
-%\begin{fullonly}
-%\photo[r]{pic8}
-%\photoscale{0.18}
-%\end{fullonly}
 
 \title{Curriculum Vitae}
 
@@ -120,35 +104,19 @@
 \makeheaders[c]
 
 \makerubric{employment}
-
-%\makerubric{past_affil}
-
 \makerubric{education}
-
 \makerubric{research_interests}
-
 \makerubric{skills}
-
 \makerubric{Par_aw_ach}
-
 \makerubric{conferences}
-
 \makerubric{workshops_and_seminars}
-
 \makerubric{courses_tutored}
-
 \makerubric{mentoring}
-
 \makerubric{jour_ref}
-
 \makerubric{References}
 
 \newpage
 
 \input{publications}
-
-
-%\makerubric{referee}
-% \input{referee-full}
 
 \end{document}
