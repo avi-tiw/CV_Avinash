@@ -1,24 +1,27 @@
-name: Build LaTeX document
-
-on:
+name: Compile LaTeX CV
+on: 
   push:
-    branches: [ main ]   # Runs when you push to main branch
-  pull_request:           # Also runs for PRs
+    paths:
+      - '**.tex'
+      - '**.bib'
+      - '**.cls'
 
 jobs:
-  build_latex:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Compile LaTeX
-        uses: xu-cheng/latex-action@v2
+      
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
         with:
-          root_file: cv-llt.tex   # change this to your main .tex file
-
-      - name: Upload PDF
+          root_file: cv-llt.tex
+          latexmk_use_biber: true
+      
+      - name: Upload PDF as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PDF
-          path: cv-llt.pdf        # must match output file name
+          name: Avinash_Tiwari_CV
+          path: cv-llt.pdf
+          retention-days: 90
